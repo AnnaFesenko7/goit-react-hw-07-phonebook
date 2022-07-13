@@ -1,0 +1,17 @@
+.wrapper__contacts {
+  width: 400px;
+  height: 200;
+  font-size: 20px;
+}
+.wrapper__phonebook {
+  border: 1px solid #000;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 20px;
+  padding-left: 20px;
+  width: 350px;
+}
+.title {
+  width: 400px;
+  text-align: start;
+}
