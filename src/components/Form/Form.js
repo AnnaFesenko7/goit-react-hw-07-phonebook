@@ -6,11 +6,11 @@ import * as contactsOperations from '../../redux/contacts/contacts-operations';
 
 export default function Form() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const [id, setId] = useState('');
   const dispatch = useDispatch();
   const saveContact = () =>
-    dispatch(contactsOperations.saveContact({ name, number, id }));
+    dispatch(contactsOperations.saveContact({ name, phone, id }));
 
   const handelInputChange = event => {
     const { name, value } = event.target;
@@ -18,8 +18,8 @@ export default function Form() {
       case 'name':
         setName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
       default:
         return;
@@ -29,13 +29,13 @@ export default function Form() {
   const handleSubmit = event => {
     event.preventDefault();
     setId(nanoid());
-    saveContact({ name, number, id });
+    saveContact({ name, phone, id });
     reset();
   };
 
   const reset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -57,10 +57,10 @@ export default function Form() {
         Number
         <input
           className={s.form__input}
-          value={number}
+          value={phone}
           onChange={handelInputChange}
           type="tel"
-          name="number"
+          name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

@@ -1,5 +1,6 @@
 import s from './App.module.css';
-
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { ThreeDots } from 'react-loader-spinner';
 import ContactsList from './ContactsList/ContactsList';
 import Form from './Form/Form';
 import Filter from './Filter/Filter';
@@ -15,6 +16,8 @@ export default function App() {
   }, [dispatch]);
 
   const contacts = useSelector(state => state.items);
+  const isLoading = useSelector(state => state.loading);
+  const isError = useSelector(state => state.error);
   return (
     <div
       style={{
@@ -35,10 +38,18 @@ export default function App() {
       <div className={s.wrapper__contacts}>
         {contacts.length !== 0 ? <ContactsList /> : ''}
       </div>
+      {isLoading && (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <ThreeDots height="100" width="100" color="red" ariaLabel="loading" />
+        </div>
+      )}
+      {isError && <p>{isError.message}</p>}
     </div>
   );
 }
-// const mapStateToProps = state => ({
-//   contacts: state.items,
-// });
-// export default connect(mapStateToProps, null)(App);

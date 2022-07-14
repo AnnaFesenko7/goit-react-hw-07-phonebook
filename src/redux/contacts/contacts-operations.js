@@ -30,6 +30,7 @@ export const deleteContact = todoId => dispatch => {
 };
 export const saveContact = contact => dispatch => {
   dispatch(saveContactsRequest());
+  console.log(contact);
   axios
     .post('/contacts', contact)
     .then(({ data }) => dispatch(saveContactsSuccess(data)))

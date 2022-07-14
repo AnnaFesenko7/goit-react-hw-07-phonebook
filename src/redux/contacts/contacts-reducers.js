@@ -36,7 +36,7 @@ export const itemsReducer = createReducer(items, {
   [saveContactsSuccess]: (state, { payload }) => {
     return state.find(
       contact =>
-        contact.name === payload.name || contact.number === payload.number
+        contact.name === payload.name || contact.phone === payload.phone
     )
       ? showAlert(payload.name)
       : [payload, ...state];
@@ -60,4 +60,10 @@ export const loadingReducer = createReducer(false, {
   [saveContactsError]: () => false,
   [saveContactsRequest]: () => true,
   [saveContactsSuccess]: () => false,
+});
+
+export const errorReducer = createReducer(null, {
+  [fetchContactsError]: (_, { payload }) => payload,
+  [deleteContactsError]: (_, { payload }) => payload,
+  [saveContactsError]: (_, { payload }) => payload,
 });

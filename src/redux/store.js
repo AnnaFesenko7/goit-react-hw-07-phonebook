@@ -2,6 +2,7 @@ import {
   itemsReducer,
   filterReducer,
   loadingReducer,
+  errorReducer,
 } from './contacts/contacts-reducers';
 import {
   FLUSH,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   items: itemsReducer,
   filter: filterReducer,
   loading: loadingReducer,
+  error: errorReducer,
 });
 
 export const store = configureStore({
