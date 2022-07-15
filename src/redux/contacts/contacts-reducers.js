@@ -13,23 +13,7 @@ import {
   saveContactsSuccess,
 } from './contacts-actions';
 
-const items = [
-  // {
-  //   name: 'Anna Fesenko',
-  //   number: '359-79-39',
-  //   id: '2P2njwuGQH7Ii253QN4R6',
-  // },
-  // {
-  //   name: 'Ivan Khorokhor',
-  //   number: '123-85-97',
-  //   id: '9JVdbo866LiW0sGNNHBRM',
-  // },
-  // {
-  //   name: 'Nataly Shtukina',
-  //   number: '785-269-79',
-  //   id: 'sXQj5y5_iz8ZzJJdN94Xv',
-  // },
-];
+const items = [];
 
 export const itemsReducer = createReducer(items, {
   [fetchContactsSuccess]: (_, { payload }) => payload,

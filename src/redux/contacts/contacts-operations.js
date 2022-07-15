@@ -28,11 +28,16 @@ export const deleteContact = todoId => dispatch => {
     .then(() => dispatch(deleteContactsSuccess(todoId)))
     .catch(error => dispatch(deleteContactsError(error)));
 };
+
 export const saveContact = contact => dispatch => {
   dispatch(saveContactsRequest());
-  console.log(contact);
-  axios
-    .post('/contacts', contact)
-    .then(({ data }) => dispatch(saveContactsSuccess(data)))
-    .catch(error => dispatch(saveContactsError(error)));
+
+  axios.get(`/contacts/?search=${contact.name}`).then(({ data }) => {
+    data.length === 0
+      ? axios
+          .post('/contacts', contact)
+          .then(({ data }) => dispatch(saveContactsSuccess(data)))
+          .catch(error => dispatch(saveContactsError(error)))
+      : dispatch(saveContactsSuccess(contact));
+  });
 };
