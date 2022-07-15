@@ -7,6 +7,7 @@ import Filter from './Filter/Filter';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import * as contactsOperations from '../redux/contacts/contacts-operations';
+import * as contactsSelectors from '../redux/contacts/contacts-selectors';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -15,9 +16,9 @@ export default function App() {
     dispatch(contactsOperations.fetchContacts());
   }, [dispatch]);
 
-  const contacts = useSelector(state => state.items);
-  const isLoading = useSelector(state => state.loading);
-  const isError = useSelector(state => state.error);
+  const contacts = useSelector(contactsSelectors.getAllContacts);
+  const isLoading = useSelector(contactsSelectors.getStateLoading);
+  const isError = useSelector(contactsSelectors.getStateError);
   return (
     <div
       style={{
