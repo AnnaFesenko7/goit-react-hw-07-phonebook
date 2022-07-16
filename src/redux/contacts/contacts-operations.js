@@ -4,9 +4,9 @@ import {
   // fetchContactsError,
   // fetchContactsRequest,
   // fetchContactsSuccess,
-  deleteContactsError,
-  deleteContactsRequest,
-  deleteContactsSuccess,
+  // deleteContactsError,
+  // deleteContactsRequest,
+  // deleteContactsSuccess,
   saveContactsError,
   saveContactsRequest,
   saveContactsSuccess,
@@ -21,21 +21,29 @@ axios.defaults.baseURL = 'https://62ceb308486b6ce8264ac089.mockapi.io/contacts';
 //     .catch(error => dispatch(fetchContactsError(error)));
 // };
 export const fetchContacts = createAsyncThunk(
-  'books/fetchContacts',
+  'contacts/fetchContacts',
   async () => {
     const response = await axios.get('/contacts');
     return response.data;
   }
 );
 
-export const deleteContact = todoId => dispatch => {
-  dispatch(deleteContactsRequest());
+// export const deleteContact = todoId => dispatch => {
+//   dispatch(deleteContactsRequest());
 
-  axios
-    .delete(`/contacts/${todoId}`)
-    .then(() => dispatch(deleteContactsSuccess(todoId)))
-    .catch(error => dispatch(deleteContactsError(error)));
-};
+//   axios
+//     .delete(`/contacts/${todoId}`)
+//     .then(() => dispatch(deleteContactsSuccess(todoId)))
+//     .catch(error => dispatch(deleteContactsError(error)));
+// };
+
+export const deleteContact = createAsyncThunk(
+  'contacts/deleteContacts',
+  async todoId => {
+    await axios.delete(`/contacts/${todoId}`);
+    return todoId;
+  }
+);
 
 export const saveContact = contact => dispatch => {
   dispatch(saveContactsRequest());

@@ -5,14 +5,14 @@ import {
   // fetchContactsError,
   // fetchContactsRequest,
   // fetchContactsSuccess,
-  deleteContactsSuccess,
-  deleteContactsError,
-  deleteContactsRequest,
+  // deleteContactsSuccess,
+  // deleteContactsError,
+  // deleteContactsRequest,
   saveContactsError,
   saveContactsRequest,
   saveContactsSuccess,
 } from './contacts-actions';
-import { fetchContacts } from './contacts-operations';
+import { fetchContacts, deleteContact } from './contacts-operations';
 
 const items = [];
 
@@ -30,7 +30,7 @@ export const itemsReducer = createReducer(items, {
       : [payload, ...state];
   },
 
-  [deleteContactsSuccess]: (state, action) =>
+  [deleteContact.fulfilled]: (state, action) =>
     state.filter(contact => contact.id !== action.payload),
 });
 
@@ -42,9 +42,9 @@ export const loadingReducer = createReducer(false, {
   [fetchContacts.rejected]: () => false,
   [fetchContacts.pending]: () => true,
   [fetchContacts.fulfilled]: () => false,
-  [deleteContactsSuccess]: () => false,
-  [deleteContactsError]: () => false,
-  [deleteContactsRequest]: () => true,
+  [deleteContact.fulfilled]: () => false,
+  [deleteContact.rejected]: () => false,
+  [deleteContact.pending]: () => true,
   [saveContactsError]: () => false,
   [saveContactsRequest]: () => true,
   [saveContactsSuccess]: () => false,
@@ -52,6 +52,6 @@ export const loadingReducer = createReducer(false, {
 
 export const errorReducer = createReducer(null, {
   [fetchContacts.rejected]: (_, { payload }) => payload,
-  [deleteContactsError]: (_, { payload }) => payload,
+  [deleteContact.rejected]: (_, { payload }) => payload,
   [saveContactsError]: (_, { payload }) => payload,
 });
