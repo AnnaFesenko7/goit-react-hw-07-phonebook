@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  fetchContactsError,
-  fetchContactsRequest,
-  fetchContactsSuccess,
+  // fetchContactsError,
+  // fetchContactsRequest,
+  // fetchContactsSuccess,
   deleteContactsError,
   deleteContactsRequest,
   deleteContactsSuccess,
@@ -12,13 +13,20 @@ import {
 } from './contacts-actions';
 axios.defaults.baseURL = 'https://62ceb308486b6ce8264ac089.mockapi.io/contacts';
 
-export const fetchContacts = () => dispatch => {
-  dispatch(fetchContactsRequest());
-  axios
-    .get('/contacts')
-    .then(({ data }) => dispatch(fetchContactsSuccess(data)))
-    .catch(error => dispatch(fetchContactsError(error)));
-};
+// export const fetchContacts = () => dispatch => {
+//   dispatch(fetchContactsRequest());
+//   axios
+//     .get('/contacts')
+//     .then(({ data }) => dispatch(fetchContactsSuccess(data)))
+//     .catch(error => dispatch(fetchContactsError(error)));
+// };
+export const fetchContacts = createAsyncThunk(
+  'books/fetchContacts',
+  async () => {
+    const response = await axios.get('/contacts');
+    return response.data;
+  }
+);
 
 export const deleteContact = todoId => dispatch => {
   dispatch(deleteContactsRequest());

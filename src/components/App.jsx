@@ -6,13 +6,12 @@ import Form from './Form/Form';
 import Filter from './Filter/Filter';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-// import * as contactsOperations from '../redux/contacts/contacts-operations';
-// import * as contactsSelectors from '../redux/contacts/contacts-selectors';
+
 import { contactsOperations, contactsSelectors } from '../redux/contacts';
 export default function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    console.log('useef');
     dispatch(contactsOperations.fetchContacts());
   }, [dispatch]);
 

@@ -2,9 +2,9 @@ import showAlert from '../helpers';
 import { createReducer } from '@reduxjs/toolkit';
 import {
   changeFilter,
-  fetchContactsError,
-  fetchContactsRequest,
-  fetchContactsSuccess,
+  // fetchContactsError,
+  // fetchContactsRequest,
+  // fetchContactsSuccess,
   deleteContactsSuccess,
   deleteContactsError,
   deleteContactsRequest,
@@ -12,11 +12,15 @@ import {
   saveContactsRequest,
   saveContactsSuccess,
 } from './contacts-actions';
+import { fetchContacts } from './contacts-operations';
 
 const items = [];
 
 export const itemsReducer = createReducer(items, {
-  [fetchContactsSuccess]: (_, { payload }) => payload,
+  [fetchContacts.fulfilled]: (_, { payload }) => {
+    console.log(payload);
+    return payload;
+  },
   [saveContactsSuccess]: (state, { payload }) => {
     return state.find(
       contact =>
@@ -35,9 +39,9 @@ export const filterReducer = createReducer('', {
 });
 
 export const loadingReducer = createReducer(false, {
-  [fetchContactsError]: () => false,
-  [fetchContactsRequest]: () => true,
-  [fetchContactsSuccess]: () => false,
+  [fetchContacts.rejected]: () => false,
+  [fetchContacts.pending]: () => true,
+  [fetchContacts.fulfilled]: () => false,
   [deleteContactsSuccess]: () => false,
   [deleteContactsError]: () => false,
   [deleteContactsRequest]: () => true,
@@ -47,7 +51,7 @@ export const loadingReducer = createReducer(false, {
 });
 
 export const errorReducer = createReducer(null, {
-  [fetchContactsError]: (_, { payload }) => payload,
+  [fetchContacts.rejected]: (_, { payload }) => payload,
   [deleteContactsError]: (_, { payload }) => payload,
   [saveContactsError]: (_, { payload }) => payload,
 });
