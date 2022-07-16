@@ -1,16 +1,5 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  // fetchContactsError,
-  // fetchContactsRequest,
-  // fetchContactsSuccess,
-  // deleteContactsError,
-  // deleteContactsRequest,
-  // deleteContactsSuccess,
-  saveContactsError,
-  saveContactsRequest,
-  saveContactsSuccess,
-} from './contacts-actions';
 axios.defaults.baseURL = 'https://62ceb308486b6ce8264ac089.mockapi.io/contacts';
 
 // export const fetchContacts = () => dispatch => {
@@ -28,32 +17,18 @@ export const fetchContacts = createAsyncThunk(
   }
 );
 
-// export const deleteContact = todoId => dispatch => {
-//   dispatch(deleteContactsRequest());
-
-//   axios
-//     .delete(`/contacts/${todoId}`)
-//     .then(() => dispatch(deleteContactsSuccess(todoId)))
-//     .catch(error => dispatch(deleteContactsError(error)));
-// };
-
 export const deleteContact = createAsyncThunk(
-  'contacts/deleteContacts',
+  'contacts/deleteContact',
   async todoId => {
     await axios.delete(`/contacts/${todoId}`);
     return todoId;
   }
 );
 
-export const saveContact = contact => dispatch => {
-  dispatch(saveContactsRequest());
-
-  axios.get(`/contacts/?search=${contact.name}`).then(({ data }) => {
-    data.length === 0
-      ? axios
-          .post('/contacts', contact)
-          .then(({ data }) => dispatch(saveContactsSuccess(data)))
-          .catch(error => dispatch(saveContactsError(error)))
-      : dispatch(saveContactsSuccess(contact));
-  });
-};
+export const saveContact = createAsyncThunk(
+  'contacts/saveContact',
+  async contact => {
+    await axios.post('/contacts', contact);
+    return contact;
+  }
+);

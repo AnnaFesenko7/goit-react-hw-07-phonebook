@@ -1,16 +1,28 @@
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import s from './Form.module.css';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as contactsOperations from '../../redux/contacts/contacts-operations';
+import { contactsSelectors } from 'redux/contacts';
+import showAlert from 'redux/helpers';
 
 export default function Form() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [id, setId] = useState('');
   const dispatch = useDispatch();
-  const saveContact = () =>
+  const contacts = useSelector(contactsSelectors.getAllContacts);
+  console.log('🚀 ~ file: Form.js ~ line 16 ~ Form ~ contacts', contacts);
+
+  const saveContact = () => {
+    if (
+      contacts.find(contact => contact.name === name || contact.phone === phone)
+    ) {
+      showAlert(name);
+      return;
+    }
     dispatch(contactsOperations.saveContact({ name, phone, id }));
+  };
 
   const handelInputChange = event => {
     const { name, value } = event.target;
